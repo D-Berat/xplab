@@ -1,37 +1,97 @@
 # Exécuter les scripts XPLab
 
-## Choisir une version
+## Environnements
 
-Utiliser SQL Server avec SSMS ou un outil compatible pour `sql/sqlserver`, ou MySQL avec un client acceptant la directive `DELIMITER` pour `sql/mysql`. Les contraintes et fonctions utilisées supposent une version récente du moteur ; MySQL doit notamment appliquer les contraintes `CHECK`.
+| Version du dépôt | Environnement utilisé pour les essais du projet | Outil de lancement |
+| --- | --- | --- |
+| `sql/sqlserver` | SQL Server Express 2022 | SQL Server Management Studio (SSMS) |
+| `sql/mysql` | MariaDB 10.4.32 portable | Client en ligne de commande acceptant `DELIMITER` |
 
-Les deux dossiers implémentent le même modèle. Il n'est pas nécessaire d'exécuter les deux pour explorer le projet, et leurs syntaxes ne sont pas interchangeables.
+Le dossier `mysql` contient l'adaptation demandée pour MySQL / XAMPP. Les essais retrouvés ont été effectués sur **MariaDB 10.4.32**, pas sur un serveur Oracle MySQL. Pour MySQL, prévoir au minimum **8.0.16**, version à partir de laquelle les contraintes `CHECK` sont appliquées : [documentation MySQL](https://dev.mysql.com/doc/refman/8.0/en/create-table-check-constraints.html). Ce minimum ne constitue pas une validation sur toutes les versions suivantes.
 
-## Ordre d'exécution
+Les deux dossiers proposent le même modèle métier. Choisir une seule version : leurs syntaxes ne sont pas interchangeables.
 
-1. `01-creation.sql` crée les tables, clés et contraintes.
-2. `02-donnees.sql` insère le jeu de démonstration.
-3. `03-exploitation.sql` définit les vues et procédures et présente les consultations et exemples d'appels.
+## Préparer la base
 
-**Le premier script contient `DROP DATABASE IF EXISTS XPLab_SAE3`. Il supprime la base de ce nom avant de la recréer.** Exécuter uniquement dans une instance de développement dédiée, sans données à conserver sous ce nom.
+**Le premier script supprime la base `XPLab_SAE3` si elle existe, puis la recrée.** Utiliser une instance de développement sans données à conserver sous ce nom.
 
-Pour SQL Server, exécuter les fichiers dans cet ordre dans l'éditeur, en conservant les séparateurs `GO`. Pour MySQL, se connecter avec son propre compte de développement, puis utiliser les chemins absolus adaptés à sa copie :
+Le compte de connexion doit pouvoir créer une base, des tables, des vues et des procédures. Les lignes de la table `Utilisateur` sont des personnes fictives du jeu de démonstration, pas des comptes de connexion au serveur.
+
+Exécuter les fichiers dans cet ordre :
+
+1. `01-creation.sql` : base, tables, clés et contraintes.
+2. `02-donnees.sql` : données de démonstration.
+3. `03-exploitation.sql` : vues, procédures, consultations et exemples d'appels.
+
+### SQL Server
+
+Se connecter à l'instance dans SSMS. Ouvrir et exécuter successivement les trois fichiers de `sql/sqlserver`, en conservant les séparateurs `GO`.
+
+Pour identifier la version du serveur :
 
 ```sql
-SOURCE /chemin/vers/xplab/sql/mysql/01-creation.sql;
-SOURCE /chemin/vers/xplab/sql/mysql/02-donnees.sql;
-SOURCE /chemin/vers/xplab/sql/mysql/03-exploitation.sql;
+SELECT @@VERSION;
 ```
 
-Aucun identifiant de connexion au serveur n'est fourni dans le dépôt. Les comptes de la table `Utilisateur` sont des données métier fictives, pas des comptes SQL.
+### MySQL / MariaDB
 
-## Explorer les résultats
+Ouvrir le client `mysql` avec son propre compte de développement, puis utiliser les chemins absolus adaptés à sa copie. Les commandes `SOURCE` ci-dessous sont destinées à ce client :
 
-Le script d'exploitation regroupe les actions du chercheur, du gestionnaire et du participant. La variable d'acteur sélectionne un identifiant fictif du jeu de données. Les exemples d'appels aux procédures sont commentés : les examiner puis les exécuter individuellement pour observer leur effet.
+```sql
+SELECT VERSION();
+SOURCE C:/chemin/vers/xplab/sql/mysql/01-creation.sql;
+SOURCE C:/chemin/vers/xplab/sql/mysql/02-donnees.sql;
+SOURCE C:/chemin/vers/xplab/sql/mysql/03-exploitation.sql;
+```
 
-Les dates du jeu de démonstration sont fixes, en 2026. Les consultations de créneaux futurs et certaines procédures dépendent de l'heure courante en UTC. Une consultation peut donc retourner moins de lignes, ou aucun résultat, si le jeu est exécuté plus tard. Ce comportement n'est pas une preuve d'échec d'installation. Pour un nouvel essai, préparer des dates adaptées dans une copie locale tout en conservant la cohérence des études et des créneaux.
+Conserver les directives `DELIMITER` du troisième fichier. Sur un autre système, remplacer les chemins par ceux de la copie locale.
 
-## Ce qui est vérifié pour cette publication
+## Premières consultations
 
-Les six fichiers SQL de ce dépôt ont été comparés octet par octet aux livrables du Drive. La préparation du dépôt a harmonisé leurs noms, sans réécrire les commandes. La présence des 16 tables, 9 procédures et 3 vues par version a été contrôlée.
+Après le chargement, ces consultations fonctionnent dans les deux versions :
 
-La création du dépôt ne constitue pas une nouvelle campagne d'exécution des bases ni un test de l'application, qui reste à développer. Les limites sur la concurrence et les écritures directes sont détaillées dans la [documentation de conception](base-de-donnees.md).
+```sql
+USE XPLab_SAE3;
+
+SELECT * FROM vue_etudes_candidatures;
+SELECT * FROM vue_bilan_experimentations;
+SELECT * FROM vue_planning_salles;
+```
+
+Pour vérifier le nombre de tables, utiliser la requête adaptée au moteur :
+
+**SQL Server :**
+
+```sql
+SELECT COUNT(*) AS nombre_tables
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_CATALOG = 'XPLab_SAE3'
+  AND TABLE_TYPE = 'BASE TABLE';
+```
+
+**MySQL / MariaDB :**
+
+```sql
+SELECT COUNT(*) AS nombre_tables
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA = 'XPLab_SAE3'
+  AND TABLE_TYPE = 'BASE TABLE';
+```
+
+Le nombre attendu est **16**. Les trois vues proposent respectivement un suivi des candidatures, un bilan des présences et rétributions, et le planning des salles.
+
+Le script d'exploitation regroupe ensuite les actions du chercheur, du gestionnaire et du participant. La variable d'acteur sélectionne un identifiant fictif. Les exemples de procédures sont commentés : les examiner puis les exécuter individuellement pour observer leur effet.
+
+## Dates et résultats
+
+Le jeu de démonstration utilise des **dates fixes en 2026**. Les consultations de créneaux futurs et certaines procédures dépendent de l'heure courante en UTC. Une consultation peut donc retourner moins de lignes, ou aucun résultat, lors d'un essai ultérieur.
+
+Pour tester de nouvelles réservations, préparer des dates adaptées dans une copie locale, en conservant la cohérence entre la période de l'étude et ses créneaux. Il n'est pas nécessaire de modifier les scripts pour consulter le modèle, les données chargées et les vues de bilan.
+
+## Vérifications et limites
+
+Les six scripts publiés correspondent aux livrables du Drive. Leur contenu a été conservé ; les noms de fichiers ont été harmonisés. Chaque version comporte 16 tables, 9 procédures stockées et 3 vues.
+
+Les environnements indiqués plus haut proviennent des traces d'exécution du projet. La mise à jour de la documentation n'est pas une nouvelle campagne d'essais des bases.
+
+Les procédures vérifient les règles métier et annulent une opération qui échoue. La gestion des demandes simultanées reste hors du périmètre traité ; les écritures directes peuvent contourner les contrôles portés uniquement par les procédures. Voir les [choix de conception](base-de-donnees.md).

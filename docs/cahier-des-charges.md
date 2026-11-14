@@ -1,6 +1,6 @@
 # XPLab - synthèse du cahier des charges
 
-Cette synthèse présente les exigences du projet scolaire et le travail de conception. Elle ne décrit pas une application déjà livrée. Le document collectif de référence compte 127 pages, incluant notamment spécifications, schémas, maquettes et planification.
+Cette synthèse présente les exigences et le travail de conception de XPLab. Le [cahier des charges complet (PDF, 127 pages)](rapports/cahier-des-charges.pdf) rassemble les spécifications, schémas, maquettes et éléments de planification. Le [guide de lecture](README.md) indique les pages utiles.
 
 ## Besoin initial
 
@@ -39,7 +39,7 @@ J'ai pris en charge l'essentiel de l'analyse et de la rédaction :
 - Architecture fonctionnelle, répartition en modules et parcours de navigation.
 - Mise en relation des exigences avec les règles métier et la conception des données.
 
-La planification et les maquettes Figma ont été réalisées par les autres membres de l'équipe. Le projet est collectif ; cette présentation distingue ma contribution des livrables auxquels je n'ai pas contribué de manière principale.
+La planification et les maquettes Figma complètent le travail de l'équipe ; ma contribution est centrée sur les exigences, l'architecture et les données.
 
 ## Exigences à intégrer dans l'application
 

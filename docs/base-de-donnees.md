@@ -4,6 +4,8 @@
 
 Le travail part des règles de gestion et du dictionnaire des données. Les dépendances fonctionnelles aident à déterminer les identifiants et les regroupements d'attributs avant la construction du modèle conceptuel (MCD), puis du modèle logique (MLD).
 
+Le [dossier de conception complet (PDF, 17 pages)](rapports/conception-bdd.pdf) détaille les 32 règles de gestion, le dictionnaire, les dépendances fonctionnelles et leurs graphes. Les sections suivantes expliquent les principaux choix et leur traduction dans les scripts.
+
 Le MCD comporte **11 entités**. Le passage au modèle relationnel produit **16 tables** : les entités, complétées par les associations `ParticipantLangue`, `AffectationEquipement`, `Inscription`, `Reservation` et `Retribution`.
 
 [Voir le MCD en grand](images/xplab-mcd.webp) · [Voir le MLD en grand](images/xplab-mld.webp)
@@ -84,4 +86,4 @@ Cette formulation couvre les inclusions complètes que la seule comparaison des 
 
 L'adaptation vers MySQL porte notamment sur les identifiants générés, les calculs de date, la syntaxe des procédures et la remontée des erreurs. Le modèle relationnel et le sens des opérations restent communs aux deux versions.
 
-Les données de démonstration sont fictives. Les scripts sont conservés dans l'état du livrable scolaire ; le [guide d'exécution](execution.md) précise l'ordre de lancement et l'effet des dates fixes.
+Les données de démonstration sont fictives. Le [guide d'exécution](execution.md) précise les environnements utilisés, l'ordre de lancement et l'effet des dates fixes.
