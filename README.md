@@ -24,9 +24,13 @@ Le cahier des charges prévoit six profils. La base publiée se concentre sur **
 
 ## 👤 Ma contribution
 
-J'ai assuré l'essentiel de l'analyse des besoins et de la rédaction du cahier des charges, ainsi que la conception et la réalisation de la base de données. Mon travail couvre les scénarios d'utilisation, les spécifications fonctionnelles, l'architecture, les parcours de navigation, les règles de gestion, la modélisation et les scripts SQL Server et MySQL.
+J'ai réalisé les parties 1 à 5 du cahier des charges, à l'exception des maquettes Figma : analyse des besoins, scénarios d'utilisation, spécifications fonctionnelles, architecture et parcours de navigation. J'ai également assuré la conception et la réalisation de la base de données, des règles de gestion et de la modélisation jusqu'aux scripts SQL Server et MySQL.
 
-Le projet est réalisé en équipe de trois, avec **120 heures prévues par étudiant**, dans le cadre de ma deuxième année de BUT Informatique. La planification et les maquettes Figma ont été réalisées par les autres membres de l'équipe.
+## 👥 Équipe
+
+**Berat DASTAN · Yannis CHEVALLIER · Maceo MORIN**
+
+Projet réalisé en équipe de trois, avec **120 heures prévues par étudiant**, dans le cadre de ma deuxième année de BUT Informatique. Les deux autres membres ont réalisé la **partie 6 (gestion de projet et maîtrise des risques)**, la **partie 7 (annexes)** et les **maquettes Figma**. La section « Ma contribution » précise mon travail personnel.
 
 ## 🛠️ Technologies et outils
 

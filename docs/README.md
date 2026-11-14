@@ -27,7 +27,7 @@ Le projet se lit à deux niveaux : les synthèses expliquent les principaux choi
 
 Les repères ci-dessus correspondent aux pages réelles du fichier. Les signets du PDF permettent de naviguer dans les grandes parties après ouverture dans un lecteur PDF.
 
-Les maquettes et la planification font partie du travail collectif. Le [fichier Figma](https://www.figma.com/design/3NTrWKLUQh5znYPqcO1f5m/Maquette-Sae2.03?node-id=0-1) est également référencé dans le rapport ; ses droits d'accès dépendent du partage défini par son propriétaire. Les captures restent consultables dans le PDF.
+Les parties 6 (gestion de projet et maîtrise des risques), 7 (annexes) et les maquettes Figma ont été réalisées par les deux autres membres de l'équipe. La [section Équipe du README](../README.md#-équipe) présente les membres du groupe. Le [fichier Figma](https://www.figma.com/design/3NTrWKLUQh5znYPqcO1f5m/Maquette-Sae2.03?node-id=0-1) est également référencé dans le rapport ; ses droits d'accès dépendent du partage défini par son propriétaire. Les captures restent consultables dans le PDF.
 
 ## Conception de la base de données
 
