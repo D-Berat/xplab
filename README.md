@@ -30,7 +30,7 @@ J'ai réalisé les parties 1 à 5 du cahier des charges, à l'exception des maqu
 
 **Berat DASTAN · Yannis CHEVALLIER · Maceo MORIN**
 
-Projet réalisé en équipe de trois, avec **120 heures prévues par étudiant**, dans le cadre de ma deuxième année de BUT Informatique. Les deux autres membres ont réalisé la **partie 6 (gestion de projet et maîtrise des risques)**, la **partie 7 (annexes)** et les **maquettes Figma**. La section « Ma contribution » précise mon travail personnel.
+Projet réalisé en équipe de trois, avec **120 heures prévues par étudiant**, dans le cadre de ma deuxième année de BUT Informatique.
 
 ## 🛠️ Technologies et outils
 
